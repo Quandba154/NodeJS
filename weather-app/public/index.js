@@ -1,7 +1,8 @@
 const asynRequest = require("async-request");
+require("dotenv").config();
 
 const getWeather = async (location) => {
-  const token = "a23e6b1e8f7f00b0113ed7ef4edd9d1b";
+  const token = process.env.TOKEN_API_KEY;
   const url = `https://api.weatherstack.com/current?access_key=${token}&query=${location}`;
 
   try {
@@ -49,7 +50,6 @@ app.get("/", async (req, res) => {
   const weather = await getWeather(location);
   console.log("weather:", weather);
   // render ra UI
-
   res.render("weather", {
     // lấy hiển thị ra UI
     status: true,
