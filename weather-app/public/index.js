@@ -1,20 +1,17 @@
 const asynRequest = require("async-request");
-require("dotenv").config();
 
 const getWeather = async (location) => {
   const token = process.env.TOKEN_API_KEY;
   const url = `https://api.weatherstack.com/current?access_key=${token}&query=${location}`;
 
   try {
-    const res = await asynRequest(url);
-    const data = JSON.parse(res.body);
-    const weather = {
+    const response = await asynRequest(url);
+    const data = JSON.parse(response.body);
+
+    let weather = {
       isSuccess: true,
-      name: data.location.name,
-      region: data.location.region,
       country: data.location.country,
-      latitude: data.location.lat,
-      lon: data.location.lon,
+      region: data.location.region,
       temperature: data.current.temperature,
       wind_speed: data.current.wind_speed,
       precip: data.current.precip,
@@ -26,10 +23,12 @@ const getWeather = async (location) => {
     console.log(error);
     return {
       isSuccess: false,
-      error,
+      error: error.message,
     };
   }
 };
+
+// getWeather("Tokyo");
 
 // dựng Server
 const express = require("express");
@@ -46,14 +45,19 @@ console.log("pathPublic:", pathPublic);
 // SỬ DỤNG PARAM QUERY GỌI ĐÚNG DATA TRUY XUẤT TỪ FORM
 app.get("/", async (req, res) => {
   const params = req.query;
+  console.log("params:", params);
+
   const location = params.address;
+  console.log("location:", location);
+
   const weather = await getWeather(location);
-  console.log("weather:", weather);
+  console.log("weather: :", weather);
+
   // render ra UI
   res.render("weather", {
     // lấy hiển thị ra UI
     status: true,
-    region: weather.region || weather.name,
+    region: weather.region,
     country: weather.country,
     temperature: weather.temperature,
     wind_speed: weather.wind_speed,
