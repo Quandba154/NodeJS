@@ -1,9 +1,8 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // chuyển req, res về Json
-app.use(express.json());
 
 let studentList = [
   {
@@ -27,7 +26,7 @@ let studentList = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Hello Worldss");
 });
 
 // lấy danh sách học sinh
