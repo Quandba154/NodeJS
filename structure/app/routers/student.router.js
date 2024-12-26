@@ -10,21 +10,20 @@ const {
   deleteStudentByID,
 } = require("../controllers/student.controller");
 
+const { logFeature } = require("../middlewares/logger/log-feature");
+const {
+  checkEmty,
+  checkNumberClass,
+} = require("../middlewares/validations/student.validation");
+
 //lấy danh sách học sinh
-studentRoute.get(
-  "/",
-  (req, res, next) => {
-    console.log("day la tinh năng lay danh sach students");
-    next(); // chạy tiếp middleware tiếp theo
-  },
-  getStudentList
-);
+studentRoute.get("/", logFeature, getStudentList);
 
 // lấy chi tiết học sinh
 studentRoute.get("/:id", getStudentById);
 
 // thêm học sinh
-studentRoute.post("/", addStudent);
+studentRoute.post("/", checkEmty, checkNumberClass, addStudent);
 
 // update student
 studentRoute.put("/:id", updatedStudentById);
