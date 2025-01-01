@@ -1,0 +1,21 @@
+{
+  "name": "vexere",
+  "version": "1.0.0",
+  "description": "project final at CL",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node start.js"
+  },
+  "author": "quandba",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "sequelize-cli": "^6.6.2"
+  }
+}
