@@ -13,15 +13,15 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull : false,
+        allowNull: false,
       },
       address: {
         type: Sequelize.STRING,
-        allowNull : false,
+        allowNull: false,
       },
       province: {
         type: Sequelize.STRING,
-        allowNull : false,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
