@@ -8,24 +8,41 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) { // đây đê liên kết các table
+    static associate(models) {
+      // đây đê liên kết các table
       // define association here
     }
   }
   Station.init(
     {
       name: {
-       type: DataTypes.STRING,
-       allowNull : false
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [3, 30], // validate BE
+        },
       },
       address: {
-        type : DataTypes.STRING,
-        allowNull : false,
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          checkLen(value) {
+            if (value.length > 5 && value.length < 20) {
+              return true;
+            } else {
+              throw new Error("ĐỘ DÀI TỪ 5 -> 20");
+            }
+          },
+        },
       },
       province: {
         type: DataTypes.STRING,
-        allowNull : false,
-      }
+        allowNull: false,
+        validate: {
+          isIn: [["DN", "CT", "TPHCM", "HP", "QT"]],
+        },
+      },
     },
     {
       sequelize,
