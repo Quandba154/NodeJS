@@ -1,10 +1,8 @@
 "use strict";
-/// Thằng MIGRATION nó tự tạo id cho table luôn ko cần tạo , và thằng ni tạo table bên database
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // phần up chịu trách nhiệm tạo table trong Database (sequelize-cli db:migrate)
-    await queryInterface.createTable("Stations", {
+    await queryInterface.createTable("Users", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,15 +11,20 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      address: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      province: {
+      password: {
         type: Sequelize.STRING,
-        allowNull: false,
+      },
+      numberPhone: {
+        type: Sequelize.STRING,
+      },
+      type: {
+        type: Sequelize.STRING,
+        defaultValue : "CLIENT"
       },
       createdAt: {
         allowNull: false,
@@ -34,7 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    //khi năng cấp version lên thì thằng down sẻ xoá table đi (sequelize-cli db:migrate:undo) xoá bảng
-    await queryInterface.dropTable("Stations");
+    await queryInterface.dropTable("Users");
   },
 };

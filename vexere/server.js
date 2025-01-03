@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const { sequelize } = require("./models");
-const { rootRouter } = require("./routers/index.router");
+const { rootRouter } = require("./routers/index.routers");
 
 // cài ứng dụng sử dụng json
 app.use(express.json());

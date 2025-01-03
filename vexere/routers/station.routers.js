@@ -12,6 +12,7 @@ const {
 
 const { checkExist } = require("../middlewares/validations/checkExist");
 const { where } = require("sequelize");
+const { userRouter } = require("./user.routers");
 
 stationRouter.get("/getAll", getAllStation);
 
@@ -27,4 +28,5 @@ stationRouter.get("/", filterStation);
 
 module.exports = {
   stationRouter,
+  userRouter,
 };
