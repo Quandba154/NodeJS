@@ -10,7 +10,10 @@ const {
   filterStation,
 } = require("../controllers/station.controllers");
 
-const { checkExist } = require("../middlewares/validations/checkExist");
+const {
+  checkExitsCreate,
+  checkExistPutAnDelete,
+} = require("../middlewares/validations/checkExist");
 const { authenticate } = require("../middlewares/auth/authenticate");
 
 const { authorize } = require("../middlewares/auth/authorize");
@@ -25,16 +28,24 @@ stationRouter.get("/:id", getStationById);
 stationRouter.post(
   "/",
   authenticate,
+  checkExitsCreate(Station),
   authorize(["ADMIN", "SUPPLIER"]),
   createStation
 );
 
-stationRouter.put("/:id", checkExist(Station), updateStationById);
+stationRouter.put(
+  "/:id",
+  authenticate,
+  checkExistPutAnDelete(Station),
+  authorize(["ADMIN", "SUPPLIER"]),
+  updateStationById
+);
 
 stationRouter.delete(
   "/:id",
   authenticate,
-  checkExist(Station),
+  checkExistPutAnDelete(Station),
+  authorize(["ADMIN", "SUPPLIER"]),
   deleteStationById
 );
 
