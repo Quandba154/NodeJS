@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          len: [3, 30], // validate BE
+          len: [3, 30], // validate BE (trước khi lưu xuống database)
         },
       },
       address: {

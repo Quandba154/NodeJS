@@ -1,4 +1,5 @@
 const express = require("express");
+const { Station } = require("../models");
 const stationRouter = express.Router();
 const {
   createStation,
@@ -9,15 +10,18 @@ const {
   filterStation,
 } = require("../controllers/station.controllers");
 
+const { checkExist } = require("../middlewares/validations/checkExist");
+const { where } = require("sequelize");
+
 stationRouter.get("/getAll", getAllStation);
 
 stationRouter.get("/:id", getStationById);
 
 stationRouter.post("/", createStation);
 
-stationRouter.put("/:id", updateStationById);
+stationRouter.put("/:id", checkExist(Station), updateStationById);
 
-stationRouter.delete("/:id", deleteStationById);
+stationRouter.delete("/:id", checkExist(Station), deleteStationById);
 
 stationRouter.get("/", filterStation);
 
