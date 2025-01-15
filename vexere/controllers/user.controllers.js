@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const { where } = require("sequelize");
+const multer = require("multer");
 
 const register = async (req, res) => {
   const { name, email, password, numberPhone } = req.body;
@@ -41,7 +42,7 @@ const login = async (req, res) => {
         "quandba154",
         { expiresIn: 30 * 60 }
       ); // { payload : dử liệu cần mã hoá} , privateKey : mất mk nhập key lấy lại , {thời lượng đăng nhập , giống cookie rứa}
-      res.status(201).send({message : "Login successful!", token});
+      res.status(201).send({ message: "Login successful!", token });
     } else {
       res.status(201).send("Login Failed!");
     }
@@ -51,7 +52,12 @@ const login = async (req, res) => {
   }
 };
 
+const upload_avatar = async (req, res) => {
+  const upload = multer({ dest: "/upload" });
+};
+
 module.exports = {
   register,
   login,
+  upload_avatar,
 };
